@@ -1,0 +1,69 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 28
+    buildToolsVersion "28.0.0"
+    defaultConfig {
+        applicationId "cz.kle.hlasyzvirat"
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.1"
+				setProperty("archivesBaseName", "Hlasy-zvirat-$versionName")
+    }
+		signingConfigs {
+        release
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+						signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+		implementation 'com.android.support:appcompat-v7:27.1.1'
+}
+
+task generate(type: Exec, dependsOn: ['composer', 'generateIcons']) {
+    commandLine 'php', 'web2app.php'
+		workingDir '..'
+}
+
+task composer(type: Exec) {
+    commandLine 'composer', 'install'
+		workingDir '..'
+}
+
+task generateIcons(type: Exec) {
+    commandLine 'bash', './icons.sh'
+		workingDir '..'
+}
+
+task customClean(type: Delete) {
+    delete "${projectDir}/../templates_c"
+    delete "${projectDir}/../vendor"
+		delete "src/main/res/mipmap-hdpi"
+		delete "src/main/res/mipmap-mdpi"
+		delete "src/main/res/mipmap-xhdpi"
+		delete "src/main/res/mipmap-xxhdpi"
+		delete "src/main/res/mipmap-xxxhdpi"
+}
+clean.dependsOn customClean
+
+preBuild.dependsOn(generate)
+
+def props = new Properties()
+
+props.load(new FileInputStream("${System.env.HOME}/android-sec/hlasyzvirat.properties"))
+
+android.signingConfigs.release.storeFile rootProject.file(props.keyStore)
+
+android.signingConfigs.release.storePassword props.keyStorePassword
+
+android.signingConfigs.release.keyAlias props.keyAlias
+
+android.signingConfigs.release.keyPassword props.keyAliasPassword
