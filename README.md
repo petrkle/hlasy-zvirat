@@ -5,4 +5,4 @@ Převod stránek Českého rozhlasu [www.rozhlas.cz/hlas](http://www.rozhlas.cz/
 ## Ochrana soukromí
 
 Žádné datové přenosy. Nejsou vyžadována žádná
-oprávnění. Aplikace pouze zobrazuje ptáky.
+oprávnění. Aplikace pouze zobrazuje zvířátka.
