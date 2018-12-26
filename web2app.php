@@ -10,6 +10,8 @@ if(!is_dir(WWW)){
 	mkdir(WWW, 0755, true);
 }
 
+$VERSION = `TERM=xterm-color gradle -q printVersionName 2>/dev/null`;
+
 foreach($kategorie as $url=>$nazev){
 	$z = get_members($url.'?mode=100');
 	foreach($z as $clanek=>$jmeno){
@@ -54,7 +56,26 @@ $cislo = 0;
 
 foreach($zvirata as $htmlfile => $zvire){
 	$smarty->assign('title', $zvire['jmeno']);
+	$smarty->assign('title_ascii', asciize($zvire['jmeno']));
+
+	$zvire['clanek'] = array();
+
+	foreach($zvire['info'] as $info){
+		$zvire['clanek'][$info['poradi']] = array('typ' => 'text', 'text' => $info['text']);
+	}
+
+	foreach($zvire['img'] as $img){
+		$zvire['clanek'][$img['poradi']] = array('typ' => 'img', 'img' => $img);
+	}
+
+	foreach($zvire['mp3'] as $mp3){
+		$zvire['clanek'][$mp3['poradi']] = array('typ' => 'mp3', 'mp3' => $mp3);
+	}
+
+	ksort($zvire['clanek']);
+
 	$smarty->assign('zvire', $zvire);
+
 	if($cislo == 0){
 		$smarty->assign('prev', $seznamzvirat[count($seznamzvirat)-1]);
 	}else{
@@ -81,6 +102,7 @@ $html .= $smarty->fetch('index.tpl');
 $html .= $smarty->fetch('paticka.tpl');
 file_put_contents(WWW.'/index.html', $html);
 
+$smarty->assign('VERSION', $VERSION);
 $html = $smarty->fetch('hlavicka.tpl');
 $html .= $smarty->fetch('about.tpl');
 $html .= $smarty->fetch('paticka.tpl');
@@ -90,6 +112,7 @@ copy('templates/z.css', WWW.'/z.css');
 copy('templates/roboto-regular.ttf', WWW.'/roboto-regular.ttf');
 copy('templates/jquery-1.12.4.min.js', WWW.'/jquery.js');
 copy('templates/jquery.touchSwipe-1.6.18.min.js', WWW.'/ts.js');
+copy('img/zaba512.png', WWW.'/zaba512.png');
 
 copyToDir(TMP.'/*.jpeg', WWW);
 copyToDir(TMP.'/*.mp3', WWW);
