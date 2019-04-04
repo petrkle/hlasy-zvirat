@@ -18,6 +18,7 @@ foreach($kategorie as $url=>$nazev){
 		$htmlfile = asciize($jmeno).'.html';
 		savehtml(ROZHLAS.$clanek);
 		$zvirata[$htmlfile] = array(
+			'id' => asciize($jmeno),
 			'jmeno' => $jmeno,
 			'info' => get_zvireinfo($clanek),
 			'nahravky' => get_nahravkyinfo($clanek),
@@ -102,6 +103,9 @@ $html .= $smarty->fetch('index.tpl');
 $html .= $smarty->fetch('paticka.tpl');
 file_put_contents(WWW.'/index.html', $html);
 
+$html = $smarty->fetch('zvirata.js.tpl');
+file_put_contents(WWW.'/zvirata.js', $html);
+
 $smarty->assign('VERSION', $VERSION);
 $html = $smarty->fetch('hlavicka.tpl');
 $html .= $smarty->fetch('about.tpl');
@@ -112,5 +116,7 @@ copy('templates/z.css', WWW.'/z.css');
 copy('templates/roboto-regular.ttf', WWW.'/roboto-regular.ttf');
 copy('img/zaba512.png', WWW.'/zaba512.png');
 
+copyToDir('templates/*.js', WWW);
+copyToDir('templates/*.svg', WWW);
 copyToDir(TMP.'/*.jpeg', WWW);
 copyToDir(TMP.'/*.mp3', WWW);
