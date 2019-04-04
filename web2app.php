@@ -110,8 +110,6 @@ file_put_contents(WWW.'/about.html', $html);
 
 copy('templates/z.css', WWW.'/z.css');
 copy('templates/roboto-regular.ttf', WWW.'/roboto-regular.ttf');
-copy('templates/jquery-1.12.4.min.js', WWW.'/jquery.js');
-copy('templates/jquery.touchSwipe-1.6.18.min.js', WWW.'/ts.js');
 copy('img/zaba512.png', WWW.'/zaba512.png');
 
 copyToDir(TMP.'/*.jpeg', WWW);
