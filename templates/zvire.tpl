@@ -1,6 +1,4 @@
-<script src="jquery.js"></script>
-<script src="ts.js"></script>
-<a href="index.html" class="hlavicka"><h1>{$title}</h1></a>
+<h1><a href="index.html" class="hlavicka">{$title}</a></h1>
 
 {foreach from=$zvire.clanek item=info}
 
@@ -39,28 +37,11 @@
 {/if}
 {/foreach}
 
-<script>
-{literal}
-$(document).ready(function () {
-			$(".obr").swipe( {
-        swipeLeft:function(event, direction, distance, duration, fingerCount) {
-{/literal}
-					window.location = "{$next.file}";
-{literal}
-        },
-        threshold: 100
-      });
-{/literal}
-{literal}
-			$(".obr").swipe( {
-        swipeRight:function(event, direction, distance, duration, fingerCount) {
-{/literal}
-					window.location = "{$prev.file}";
-{literal}
-        },
-        threshold: 100
-      });
-{/literal}
-
-});
-</script>
+<ul class="nav">
+{if isset($prev)}
+<li><a href="{$prev.file}">&laquo; {$prev.zvire.jmeno}</a></li>
+{/if}
+{if isset($next)}
+<li><a href="{$next.file}">{$next.zvire.jmeno} &raquo;</a></li>
+{/if}
+</ul>
