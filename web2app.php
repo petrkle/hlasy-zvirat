@@ -10,7 +10,7 @@ if(!is_dir(WWW)){
 	mkdir(WWW, 0755, true);
 }
 
-$VERSION = `TERM=xterm-color gradle -q printVersionName 2>/dev/null`;
+$VERSION = `git describe --tags --always --dirty`;
 
 foreach($kategorie as $url=>$nazev){
 	$z = get_members($url.'?mode=100');
