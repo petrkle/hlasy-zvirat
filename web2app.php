@@ -82,6 +82,11 @@ foreach($zvirata as $htmlfile => $zvire){
 
 	foreach($zvire['img'] as $img){
 		$zvire['clanek'][$img['poradi']] = array('typ' => 'img', 'img' => $img);
+		$smarty->assign('img', $img['id'].'.jpeg');
+		$smarty->assign('imgwidth', $img['imgwidth']);
+		$smarty->assign('imgheight', $img['imgheight']);
+		$html = $smarty->fetch('img.tpl');
+		file_put_contents(WWW.'/'.$img['id'].'.html', $html);
 	}
 
 	foreach($zvire['mp3'] as $mp3){

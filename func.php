@@ -63,9 +63,14 @@ function get_img($url){
 			$link = $l->item(0)->getAttribute("href");
 			$orig = preg_replace('/(.*_obrazek\/[0-9]+)\-\-.*/', '\1', $link).'.jpeg';
 			$id = basename($orig, '.jpeg');
+
+			$size = getimagesize(TMP.'/'.$id.'.jpeg');
+
 			$linky[$id] = array(
 				'poradi' => $nodeposition,
 				'id' => $id,
+				'imgwidth' => $size[0],
+				'imgheight' => $size[1],
 				'orig' => $orig,
 				'link' => $link,
 				'popis' => $popis,
