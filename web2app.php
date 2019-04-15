@@ -5,6 +5,7 @@ require('func.php');
 
 $kategorie = get_categories();
 $zvirata = array();
+$rubriky = array();
 
 if(!is_dir(WWW)){
 	mkdir(WWW, 0755, true);
@@ -19,11 +20,14 @@ foreach($kategorie as $url=>$nazev){
 		savehtml(ROZHLAS.$clanek);
 		$zvirata[$htmlfile] = array(
 			'id' => asciize($jmeno),
+			'htmlfile' => $htmlfile,
 			'jmeno' => $jmeno,
 			'info' => get_zvireinfo($clanek),
 			'nahravky' => get_nahravkyinfo($clanek),
 			'img' => array(),
 			'mp3' => array(),
+			'rubrika' => get_rubrika($clanek),
+			'rubrikaid' => asciize(get_rubrika($clanek)),
 		);
 		foreach(get_img(ROZHLAS.$clanek) as $id=>$img){
 			$filename = TMP.'/'.$img['id'].'.jpeg';
@@ -40,10 +44,21 @@ foreach($kategorie as $url=>$nazev){
 			}
 			array_push($zvirata[$htmlfile]['mp3'], $mp3);
 		}
+
+		if(isset($rubriky[$zvirata[$htmlfile]['rubrikaid']])){
+			array_push($rubriky[$zvirata[$htmlfile]['rubrikaid']]['clenove'], $zvirata[$htmlfile]);
+		}else{
+			$rubriky[$zvirata[$htmlfile]['rubrikaid']] = array(
+				'jmeno' => $zvirata[$htmlfile]['rubrika'],
+				'clenove' => array($zvirata[$htmlfile]),
+			);
+		}
+
 	}
 }
 
 uasort($zvirata, 'sort_by_jmeno');
+uasort($rubriky, 'sort_by_jmeno');
 
 $cislo = 0;
 $seznamzvirat = array();
@@ -96,8 +111,28 @@ foreach($zvirata as $htmlfile => $zvire){
 	$cislo++;
 }
 
+foreach($rubriky as $htmlfile => $rubrika){
+
+	uasort($rubrika['clenove'], 'sort_by_jmeno');
+
+	$smarty->assign('title', $rubrika['jmeno']);
+	$smarty->assign('rubrika', $rubrika);
+	$html = $smarty->fetch('hlavicka.tpl');
+	$html .= $smarty->fetch('rubrika.tpl');
+	$html .= $smarty->fetch('paticka.tpl');
+	file_put_contents(WWW."/$htmlfile.html", $html);
+}
+
+$smarty->assign('title', 'Druhy');
+$smarty->assign('rubriky', $rubriky);
+$html = $smarty->fetch('hlavicka.tpl');
+$html .= $smarty->fetch('rubriky.tpl');
+$html .= $smarty->fetch('paticka.tpl');
+file_put_contents(WWW.'/rubriky.html', $html);
+
 $smarty->assign('title', 'Hlasy zvířat');
 $smarty->assign('zvirata', $zvirata);
+$smarty->assign('rubriky', $rubriky);
 $html = $smarty->fetch('hlavicka.tpl');
 $html .= $smarty->fetch('index.tpl');
 $html .= $smarty->fetch('paticka.tpl');

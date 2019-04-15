@@ -208,3 +208,14 @@ function sort_by_jmeno($a, $b)
 	$coll = collator_create( 'cs_CZ.UTF-8' );
 	return collator_compare($coll, $a['jmeno'], $b['jmeno']);
 }
+
+function get_rubrika($url){
+	$navrat = array();
+	$dom = new DOMDocument();
+	$dom->loadHTML(file_get_contents(TMP.'/'.url2fn($url)));
+	$xpath = new DOMXPath($dom);
+	$rubrika = $xpath->query("//div[@id='article']/div[@class='date']/span[@class='navigation-rubrika']/a");
+	foreach($rubrika as $foo){
+		return(preg_replace('/ \(.*/','', $foo->nodeValue));
+	}
+}
