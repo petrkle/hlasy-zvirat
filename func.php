@@ -149,11 +149,32 @@ function get_zvireinfo($url){
 	$dom->loadHTML(file_get_contents(TMP.'/'.url2fn($url)));
 	$xpath = new DOMXPath($dom);
 	$odstavce = $xpath->query("//div[@id='article']/p");
+	$zakladniudaje = false;
+	$poradi = 0;
+
 	foreach($odstavce as $odstavec){
 		$nodeposition = count($xpath->query('preceding::*', $odstavec));
 		$text = trim(preg_replace(['(\s+)u', '(^\s|\s$)u'], [' ', ''], $odstavec->nodeValue));
 		if(strlen($text)>0 and !preg_match('/^Video:/', $text)){
 			array_push($navrat, array('poradi'=> $nodeposition, 'text' => $text));
+			if($text == 'Základní údaje'){
+				$zakladniudaje = true;
+			}else{
+				$poradi = $nodeposition;
+			}
+		}
+	}
+
+	if(!$zakladniudaje){
+		$all = $xpath->query("//div[@id='article']");
+		$text = $all[0]->nodeValue;
+		if(preg_match('/Základní údaje/', $text)){
+			$text = preg_replace('/.*Základní údaje/s', '', $text);
+			$text = trim(preg_replace('/Autor:.*/s', '', $text));
+			$poradi = $poradi + count($navrat);
+			array_push($navrat, array('poradi'=> ($poradi), 'text' => 'Základní údaje'));
+			$poradi = $poradi + count($navrat);
+			array_push($navrat, array('poradi'=> ($poradi), 'text' => $text));
 		}
 	}
 	return($navrat);
