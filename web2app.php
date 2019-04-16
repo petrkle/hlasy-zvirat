@@ -111,7 +111,7 @@ foreach($zvirata as $htmlfile => $zvire){
 		$smarty->assign('next', $seznamzvirat[$cislo+1]);
 	}
 	$html = $smarty->fetch('hlavicka.tpl');
-	$html .= preg_replace('/\('.$zvire['lat'].'\)/', '(<a href="lat.html#'.$zvire['id'].'">'.$zvire['lat'].'</a>)', $smarty->fetch('zvire.tpl'));
+	$html .= preg_replace('/\('.$zvire['lat'].'\)/', '(<a href="lat.html#'.$zvire['id'].'" class="lat">'.$zvire['lat'].'</a>)', $smarty->fetch('zvire.tpl'));
 	$html .= $smarty->fetch('paticka.tpl');
 	file_put_contents(WWW.'/'.$htmlfile, $html);
 	$cislo++;
