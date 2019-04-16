@@ -20,6 +20,9 @@
 <p>
 Zařazení: <a href="{$zvire.rubrikaid}.html">{$zvire.rubrika}</a>
 </p>
+<p>
+Latinský název: <a href="lat.html#{$zvire.id}">{$zvire.lat}</a>
+</p>
 {/if}
 
 {if $info.typ == 'mp3'}

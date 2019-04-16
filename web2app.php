@@ -28,6 +28,7 @@ foreach($kategorie as $url=>$nazev){
 			'mp3' => array(),
 			'rubrika' => get_rubrika($clanek),
 			'rubrikaid' => asciize(get_rubrika($clanek)),
+			'lat' => $lat[basename($htmlfile, '.html')]['l'],
 		);
 		foreach(get_img(ROZHLAS.$clanek) as $id=>$img){
 			$filename = TMP.'/'.$img['id'].'.jpeg';
@@ -110,7 +111,7 @@ foreach($zvirata as $htmlfile => $zvire){
 		$smarty->assign('next', $seznamzvirat[$cislo+1]);
 	}
 	$html = $smarty->fetch('hlavicka.tpl');
-	$html .= $smarty->fetch('zvire.tpl');
+	$html .= preg_replace('/\('.$zvire['lat'].'\)/', '(<a href="lat.html#'.$zvire['id'].'">'.$zvire['lat'].'</a>)', $smarty->fetch('zvire.tpl'));
 	$html .= $smarty->fetch('paticka.tpl');
 	file_put_contents(WWW.'/'.$htmlfile, $html);
 	$cislo++;
@@ -127,6 +128,16 @@ foreach($rubriky as $htmlfile => $rubrika){
 	$html .= $smarty->fetch('paticka.tpl');
 	file_put_contents(WWW."/$htmlfile.html", $html);
 }
+
+uasort($lat, 'sort_by_lat_jmeno');
+$smarty->assign('lat', $lat);
+
+$smarty->assign('title', 'Latinská jména');
+$smarty->assign('zvirata', $zvirata);
+$html = $smarty->fetch('hlavicka.tpl');
+$html .= $smarty->fetch('lat.tpl');
+$html .= $smarty->fetch('paticka.tpl');
+file_put_contents(WWW.'/lat.html', $html);
 
 $smarty->assign('title', 'Druhy');
 $smarty->assign('rubriky', $rubriky);

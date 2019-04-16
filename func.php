@@ -214,6 +214,12 @@ function sort_by_jmeno($a, $b)
 	return collator_compare($coll, $a['jmeno'], $b['jmeno']);
 }
 
+function sort_by_lat_jmeno($a, $b)
+{
+	$coll = collator_create( 'cs_CZ.UTF-8' );
+	return collator_compare($coll, $a['l'], $b['l']);
+}
+
 function get_rubrika($url){
 	$navrat = array();
 	$dom = new DOMDocument();
