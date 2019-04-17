@@ -5,5 +5,6 @@
 	<title>{$title}</title>
 	<meta name="viewport" content="width=device-width" />
 	<link rel="stylesheet" media="screen" type="text/css" href="z.css" />
+	<link rel="icon" type="image/png" href="zaba512.png" />
 </head>
 <body>
