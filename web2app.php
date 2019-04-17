@@ -83,6 +83,7 @@ foreach($zvirata as $htmlfile => $zvire){
 
 	foreach($zvire['img'] as $img){
 		$zvire['clanek'][$img['poradi']] = array('typ' => 'img', 'img' => $img);
+		$smarty->assign('htmlfile', $htmlfile);
 		$smarty->assign('img', $img['id'].'.jpeg');
 		$smarty->assign('imgwidth', $img['imgwidth']);
 		$smarty->assign('imgheight', $img['imgheight']);
