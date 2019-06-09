@@ -7,7 +7,7 @@
 	<link rel="icon" type="image/png" href="zaba512.png" />
 </head>
 <body>
-<a href="{$htmlfile}"><img src="{$img}" style="width:{$imgwidth}px;height:{$imgheight}px;"></a>
+<a href="{$htmlfile}#{$imgid}"><img src="{$img}" style="width:{$imgwidth}px;height:{$imgheight}px;"></a>
 </body>
 <style>
 {literal}
