@@ -172,7 +172,7 @@ function get_zvireinfo($url){
 
 	if(!$zakladniudaje){
 		$all = $xpath->query("//div[@id='article']");
-		$text = $all[0]->nodeValue;
+		$text = trim(preg_replace(['(\s+)u', '(^\s|\s$)u'], [' ', ''], $all[0]->nodeValue));
 		if(preg_match('/Základní údaje/', $text)){
 			$text = preg_replace('/.*Základní údaje/s', '', $text);
 			$text = trim(preg_replace('/Autor:.*/s', '', $text));
@@ -182,6 +182,15 @@ function get_zvireinfo($url){
 			array_push($navrat, array('poradi'=> ($poradi), 'text' => $text));
 		}
 	}
+
+	foreach($navrat as $key => $value){
+			foreach($navrat as $keyb => $valueb){
+				if($value['text'] == $valueb['text'] and $key != $keyb){
+					unset($navrat[$key]);
+				}
+			}
+	}
+
 	return($navrat);
 }
 
