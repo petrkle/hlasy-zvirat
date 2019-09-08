@@ -166,6 +166,7 @@ $html .= $smarty->fetch('paticka.tpl');
 file_put_contents(WWW.'/about.html', $html);
 
 copy('templates/z.css', WWW.'/z.css');
+copy('templates/zd.css', WWW.'/zd.css');
 copy('templates/roboto-regular.ttf', WWW.'/roboto-regular.ttf');
 copy('img/zaba512.png', WWW.'/zaba512.png');
 
