@@ -28,7 +28,7 @@ android {
         targetSdkVersion 33
         versionCode gitVersionCode
         versionName "${gitVersionName}"
-        setProperty("archivesBaseName", "Hlasy-zvirat-$versionName")
+        setProperty("archivesBaseName", "Hlasy-zvirat")
     }
     signingConfigs {
         release
