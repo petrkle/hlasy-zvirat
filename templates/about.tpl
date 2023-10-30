@@ -35,4 +35,6 @@ Příspěvek na další vývoj, opravy chyb a přidávání nových funkcí mů�
 
 <p class="c">Kontakt: <a href="mailto:petr@kle.cz?subject=Hlasy%20zvířat">petr@kle.cz</a></p>
 
+<p><a href="https://github.com/petrkle/hlasy-zvirat/blob/master/README.md">Ochrana soukromí</a></p>
+
 {include file='settings.tpl'}
