@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<style name="HlasyZvirat" parent="Theme.AppCompat.Light.NoActionBar">
+<style name="Theme.App.SplashScreen" parent="Theme.SplashScreen.IconBackground">
     <item name="android:windowBackground">@color/zvirata_bg</item>
     <item name="android:colorBackground">@color/zvirata_header</item>
+    <item name="windowSplashScreenBackground">@color/zvirata_bg</item>
+    <item name="windowSplashScreenAnimatedIcon">@drawable/zaba</item>
+    <item name="windowSplashScreenAnimationDuration">20</item>
+    <item name="postSplashScreenTheme">@style/Theme.AppCompat.NoActionBar</item>
 </style>
 </resources>
