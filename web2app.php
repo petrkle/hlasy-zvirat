@@ -13,9 +13,9 @@ if (!is_dir(WWW)) {
 
 $VERSION = `git describe --tags --always --dirty`;
 
-foreach ($kategorie as $url=>$nazev) {
+foreach ($kategorie as $url => $nazev) {
     $z = get_members($url.'?mode=100');
-    foreach ($z as $clanek=>$jmeno) {
+    foreach ($z as $clanek => $jmeno) {
         $htmlfile = asciize($jmeno).'.html';
         savehtml(ROZHLAS.$clanek);
         $zvirata[$htmlfile] = array(
@@ -30,7 +30,7 @@ foreach ($kategorie as $url=>$nazev) {
             'rubrikaid' => asciize(get_rubrika($clanek)),
             'lat' => $lat[basename($htmlfile, '.html')]['l'],
         );
-        foreach (get_img(ROZHLAS.$clanek) as $id=>$img) {
+        foreach (get_img(ROZHLAS.$clanek) as $id => $img) {
             $filename = TMP.'/'.$img['id'].'.jpeg';
             if (!is_file($filename)) {
                 savefile($img['orig'], $filename);
@@ -39,7 +39,7 @@ foreach ($kategorie as $url=>$nazev) {
         }
 
         foreach (get_mp3(ROZHLAS.$clanek) as $mp3) {
-            $filename=TMP.'/'.$mp3['id'].'.mp3';
+            $filename = TMP.'/'.$mp3['id'].'.mp3';
             if (!is_file($filename)) {
                 savefile($mp3['url'], $filename);
             }
@@ -64,7 +64,7 @@ $cislo = 0;
 $seznamzvirat = array();
 foreach ($zvirata as $htmlfile => $zvire) {
     $seznamzvirat[$cislo] = array('file' => $htmlfile,
-        'zvire' =>$zvire);
+        'zvire' => $zvire);
     $cislo++;
 }
 
@@ -100,16 +100,16 @@ foreach ($zvirata as $htmlfile => $zvire) {
     $smarty->assign('zvire', $zvire);
 
     if ($cislo == 0) {
-        $smarty->assign('prev', $seznamzvirat[count($seznamzvirat)-1]);
+        $smarty->assign('prev', $seznamzvirat[count($seznamzvirat) - 1]);
     } else {
-        $smarty->assign('prev', $seznamzvirat[$cislo-1]);
+        $smarty->assign('prev', $seznamzvirat[$cislo - 1]);
     }
 
 
-    if ($cislo == count($seznamzvirat)-1) {
+    if ($cislo == count($seznamzvirat) - 1) {
         $smarty->assign('next', $seznamzvirat[0]);
     } else {
-        $smarty->assign('next', $seznamzvirat[$cislo+1]);
+        $smarty->assign('next', $seznamzvirat[$cislo + 1]);
     }
     $html = $smarty->fetch('hlavicka.tpl');
     $html .= preg_replace('/\('.$zvire['lat'].'\)/', '(<a href="lat.html#'.$zvire['id'].'" class="lat">'.$zvire['lat'].'</a>)', $smarty->fetch('zvire.tpl'));
