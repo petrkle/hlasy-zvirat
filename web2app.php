@@ -166,7 +166,7 @@ file_put_contents(WWW.'/about.html', $html);
 copy('templates/z.css', WWW.'/z.css');
 copy('templates/zd.css', WWW.'/zd.css');
 copy('templates/roboto-regular.ttf', WWW.'/roboto-regular.ttf');
-copy('img/zaba512.png', WWW.'/zaba512.png');
+copy('zabicka.svg', WWW.'/zabicka.svg');
 
 copyToDir('templates/*.js', WWW);
 copyToDir('templates/*.svg', WWW);

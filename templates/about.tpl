@@ -14,7 +14,7 @@ Textové, zvukové a obrazové materiály Českého rozhlasu jsou chráněny aut
 </p>
 
 <p class="c">
-<a href="index.html"><img src="zaba512.png" style="width:100%;max-width:512px;"></a>
+<a href="index.html"><img src="zabicka.svg" style="width:100%;max-width:512px;"></a>
 </p>
 
 <h3>Podpoř {$title}!</h3>

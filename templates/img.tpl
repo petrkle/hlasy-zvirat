@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-	<title>{$title}</title>
-	<meta name="viewport" content="width=device-width,user-scalable=1" />
-	<link rel="icon" type="image/png" href="zaba512.png" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <title>{$title}</title>
+  <meta name="viewport" content="width=device-width,user-scalable=1" />
+  <link rel="icon" type="image/svg" href="zabicka.svg" />
 </head>
 <body>
 <a href="{$htmlfile}#{$imgid}"><img src="{$img}" style="width:{$imgwidth}px;height:{$imgheight}px;"></a>
